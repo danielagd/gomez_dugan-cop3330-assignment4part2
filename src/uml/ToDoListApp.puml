@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class ToDoListController {
+    # List<ToDo_List> lists
+    # void addList()
+    # void removeList()
+    # void saveList()
+    # void saveAllLists()
+    # void loadList()
+}
+
+class ToDoList{
+    # String title
+    # List<Item> list
+    # String getTitle()
+    # void editListTitle()
+    # void addItem()
+    # void removeItem()
+    # void displayItems()
+    # void displayCompletedItems()
+    # void displayIncompleteItems()
+}
+
+class Item {
+    # String description
+    # String dueDate
+    # boolean completed
+    # String getDescription()
+    # String getDueDate()
+    # boolean isCompleted()
+    # void editDescription()
+    # void editDueDate()
+    # void markComplete()
+
+}
+ToDoListController <|--- ToDoList
+ToDoList <|---Item
+@enduml
