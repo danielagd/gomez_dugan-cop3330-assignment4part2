@@ -6,31 +6,18 @@ package ucf;
  */
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import ucf.assignments.ToDoListAppController;
 
 public class ToDoListControllerTest {
 
     @Test
-    public void addItem(){
-
+    public void dueDateValid(){
+        assertEquals("Please enter a due date.", ToDoListAppController.dueDateValid(""));
+        assertEquals("Please enter due date in YYYY-MM-DD format.", ToDoListAppController.dueDateValid("2021-1111111-08"));
+        assertEquals("Please enter due date in YYYY-MM-DD format.", ToDoListAppController.dueDateValid("11-08-2021"));
+        assertEquals("Please enter a valid month in YYYY-MM-DD format.", ToDoListAppController.dueDateValid("2021-22-08"));
+        assertEquals("Please enter a valid date in YYYY-MM-DD format.", ToDoListAppController.dueDateValid("2021-11-40"));
     }
 
-    @Test
-    public void saveList() {
-        // create test file
-        // loop through one list from global list
-        // add contents to test file
-        // call saveList from ToDoListController with same list
-        // parse both files
-        // assert files are equal in contents
-    }
-
-    @Test
-    public void loadList() {
-        // create temp list
-        // open file
-        // parse file and add to temp list
-        // call loadList from ToDoListController with same file
-        // assert both lists are equal
-    }
 }

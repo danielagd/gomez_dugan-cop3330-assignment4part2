@@ -51,56 +51,47 @@ public class ToDoListAppController {
 
     public List<Item> toDoList = new ArrayList<Item>();
 
+    // Gets description and due date. Checks to see if due date is valid; if so, then add item to list
     @FXML
     public void addItemGateway(){
         String itemDescription = newItemDescription.getText();
         String itemDueDate = newItemDueDate.getText();
-        int dueDateLen = itemDueDate.length();
-        if (dueDateLen == 0)
-            dueDateError.setText("Please enter a due date.");
-        else if (dueDateLen != 10)
-            dueDateError.setText("Please enter due date in YYYY-MM-DD format.");
-        else {
-            if (itemDueDate.indexOf("-") != 4 && itemDueDate.indexOf("-") != 7)
-                dueDateError.setText("Please enter due date in YYYY-MM-DD");
-            else if ((int)itemDueDate.charAt(5) < 48  || (int)itemDueDate.charAt(5) > 49)
-                dueDateError.setText("Please enter a valid month in YYYY-MM-DD format.");
-            else if ((int)itemDueDate.charAt(8) < 48  || (int)itemDueDate.charAt(8) > 51)
-                dueDateError.setText("Please enter a valid date in YYYY-MM-DD format.");
-            else
-                addItem(itemDescription, itemDueDate);
-        }
+        String dueDateValidity = dueDateValid(itemDueDate);
+        if (dueDateValidity.equals(""))
+            addItem(itemDescription, itemDueDate);
+        else
+            dueDateError.setText(dueDateValidity);
     }
 
+    // Add item passed
     @FXML
     public void addItem(String description, String dueDate) {
         Item newItem = new Item(description, dueDate);
-        if (toDoList.contains(newItem))
-            dueDateError.setText("This item is already in the list.");
-        else
-        {
-            toDoList.add(newItem);
-            dueDateError.setText(description + " is added to your To-Do list!");
-        }
+        toDoList.add(newItem);
+        dueDateError.setText(description + " is added!");
     }
 
+    // Gets item number to remove from fields
     @FXML
     public void removeItemGateway(){
         int removeNum = Integer.parseInt(removeItemGiven.getText());
         removeItem(removeNum-1);
     }
 
+    // Remove item passed
     @FXML
     public void removeItem(int itemNumber) {
         Item removed = toDoList.remove(itemNumber);
         System.out.println(removed.description);
     }
 
+    // Remove all items from list
     @FXML
     public void clearItems(){
         toDoList.clear();
     }
 
+    // Loop through list and assign to output to print
     @FXML
     public void displayAllItems() {
         int size = toDoList.size();
@@ -124,6 +115,7 @@ public class ToDoListAppController {
         display.setText(output);
     }
 
+    // Loop through list and assign to output to print only if completed field is true
     @FXML
     public void displayCompletedItems() {
         int size = toDoList.size();
@@ -145,6 +137,7 @@ public class ToDoListAppController {
         display.setText(output);
     }
 
+    // Loop through list and assign to output to print only if completed field is false
     @FXML
     public void displayIncompleteItems() {
         int size = toDoList.size();
@@ -166,6 +159,7 @@ public class ToDoListAppController {
        display.setText(output);
     }
 
+    // Loop through list and output to external file
     @FXML
     public void saveList() throws IOException {
         FileWriter fw = new FileWriter("src/main/java/ucf/assignments/ToDoList.txt");
@@ -192,12 +186,14 @@ public class ToDoListAppController {
         fp.close();
     }
 
+    // Get file path from field and pass into loadList
     @FXML
     public void loadGateway() throws FileNotFoundException {
         String fp = filePathForList.getText();
         loadList(fp);
     }
 
+    // Parse through file and add to list
     @FXML
     public void loadList(String filePath) throws FileNotFoundException {
         File fp = new File(filePath);
@@ -215,6 +211,7 @@ public class ToDoListAppController {
         input.close();
     }
 
+    // Get item number from field, checks validity of number, and passes to markComplete
     @FXML
     public void markCompleteGateway(){
         int itemNum = Integer.parseInt(itemNumber.getText());
@@ -228,6 +225,7 @@ public class ToDoListAppController {
         toDoList.get(itemNum).setComplete();
     }
 
+    // Get item number from field, checks validity of number, and passes to markIncomplete
     @FXML
     public void markIncompleteGateway(){
         int itemNum = Integer.parseInt(itemNumber.getText());
@@ -241,6 +239,7 @@ public class ToDoListAppController {
         toDoList.get(itemNum).setIncomplete();
     }
 
+    // Get item number and description from field, checks validity of number, and passes to editDescription
     @FXML
     public void editDescriptionGateway() {
         int itemNum = Integer.parseInt(itemNumber.getText());
@@ -254,27 +253,18 @@ public class ToDoListAppController {
         toDoList.get(itemNum).setDescription(newDescription);
     }
 
+    // Get item number and due date from field, checks validity of number and due date, and passes to editDueDate
     @FXML
     public void editDueDateGateway() {
         int itemNum = Integer.parseInt(itemNumber.getText());
         String newDueDate = editItemDueDate.getText();
         if (itemNum <= 0 || itemNum > toDoList.size())
             dueDateError2.setText("Item number out of range.");
-        int dueDateLen = newDueDate.length();
-        if (dueDateLen == 0)
-            dueDateError2.setText("Please enter a due date.");
-        else if (dueDateLen != 10)
-            dueDateError2.setText("Please enter due date in YYYY-MM-DD format.");
-        else {
-            if (newDueDate.indexOf("-") != 4 && newDueDate.indexOf("-") != 7)
-                dueDateError2.setText("Please enter due date in YYYY-MM-DD");
-            else if ((int) newDueDate.charAt(5) < 48 || (int) newDueDate.charAt(5) > 49)
-                dueDateError2.setText("Please enter a valid month in YYYY-MM-DD format.");
-            else if ((int) newDueDate.charAt(8) < 48 || (int) newDueDate.charAt(8) > 51)
-                dueDateError2.setText("Please enter a valid date in YYYY-MM-DD format.");
-            else
-                editDueDate(itemNum - 1, newDueDate);
-        }
+        String dueDateValidity = dueDateValid(newDueDate);
+        if (dueDateValidity.equals(""))
+            editDueDate(itemNum - 1, newDueDate);
+        else
+            dueDateError2.setText(dueDateValidity);
     }
 
     @FXML
@@ -282,8 +272,30 @@ public class ToDoListAppController {
         toDoList.get(itemNum).setDueDate(newDueDate);
     }
 
-}
+    public static String dueDateValid(String dueDate) {
+        int dueDateLen = dueDate.length();
+        String output = "";
+        if (dueDateLen == 0) {
+            output = "Please enter a due date.";
+        }
+        else if (dueDateLen != 10) {
+            output = "Please enter due date in YYYY-MM-DD format.";
+        }
+        else {
+            if (dueDate.indexOf("-") != 4 && dueDate.indexOf("-") != 7) {
+                output = "Please enter due date in YYYY-MM-DD format.";
+            }
+            else if ((int) dueDate.charAt(5) < 48 || (int) dueDate.charAt(5) > 49) {
+                output = "Please enter a valid month in YYYY-MM-DD format.";
+            }
+            else if ((int) dueDate.charAt(8) < 48 || (int) dueDate.charAt(8) > 51) {
+                output = "Please enter a valid date in YYYY-MM-DD format.";
+            }
+        }
+        return output;
+    }
 
+}
 class Item extends ToDoListAppController {
     protected String description;
     protected String dueDate;

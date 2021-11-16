@@ -31,6 +31,7 @@ class ToDoListController {
     + void editDescription(int itemNum, String newDescription)
     + void editDueDateGateway()
     + void editDueDate(int itemNum, String newDueDate)
+    + String dueDateValid(String dueDate)
 }
 class Item {
     # String description
