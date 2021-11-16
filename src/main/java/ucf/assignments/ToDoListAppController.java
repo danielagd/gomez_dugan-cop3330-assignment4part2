@@ -5,7 +5,6 @@ package ucf.assignments;
  *  Copyright 2021 Daniela Gomez-Dugan
  */
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -57,6 +56,7 @@ public class ToDoListAppController {
         String itemDescription = newItemDescription.getText();
         String itemDueDate = newItemDueDate.getText();
         String dueDateValidity = dueDateValid(itemDueDate);
+
         if (dueDateValidity.equals(""))
             addItem(itemDescription, itemDueDate);
         else
@@ -215,9 +215,11 @@ public class ToDoListAppController {
     @FXML
     public void markCompleteGateway(){
         int itemNum = Integer.parseInt(itemNumber.getText());
+
         if (itemNum <= 0 || itemNum > toDoList.size())
             dueDateError2.setText("Item number out of range.");
-        markComplete(itemNum-1);
+        else
+            markComplete(itemNum-1);
     }
 
     @FXML
@@ -229,9 +231,11 @@ public class ToDoListAppController {
     @FXML
     public void markIncompleteGateway(){
         int itemNum = Integer.parseInt(itemNumber.getText());
+
         if (itemNum <= 0 || itemNum > toDoList.size())
             dueDateError2.setText("Item number out of range.");
-        markIncomplete(itemNum-1);
+        else
+            markIncomplete(itemNum-1);
     }
 
     @FXML
@@ -244,9 +248,11 @@ public class ToDoListAppController {
     public void editDescriptionGateway() {
         int itemNum = Integer.parseInt(itemNumber.getText());
         String newDescription = editItemDescription.getText();
+
         if (itemNum <= 0 || itemNum > toDoList.size())
             dueDateError2.setText("Item number out of range.");
-        editDescription(itemNum-1, newDescription);
+        else
+            editDescription(itemNum-1, newDescription);
     }
 
     public void editDescription(int itemNum, String newDescription) {
@@ -258,9 +264,12 @@ public class ToDoListAppController {
     public void editDueDateGateway() {
         int itemNum = Integer.parseInt(itemNumber.getText());
         String newDueDate = editItemDueDate.getText();
+
         if (itemNum <= 0 || itemNum > toDoList.size())
             dueDateError2.setText("Item number out of range.");
+
         String dueDateValidity = dueDateValid(newDueDate);
+
         if (dueDateValidity.equals(""))
             editDueDate(itemNum - 1, newDueDate);
         else
@@ -275,19 +284,25 @@ public class ToDoListAppController {
     public static String dueDateValid(String dueDate) {
         int dueDateLen = dueDate.length();
         String output = "";
+
+        // No Due Date inputted
         if (dueDateLen == 0) {
             output = "Please enter a due date.";
         }
+        // Too long of a Due Date
         else if (dueDateLen != 10) {
             output = "Please enter due date in YYYY-MM-DD format.";
         }
         else {
+            // No '-' in indexes 4 and 7 indicating wrong form used
             if (dueDate.indexOf("-") != 4 && dueDate.indexOf("-") != 7) {
                 output = "Please enter due date in YYYY-MM-DD format.";
             }
+            // Out of bounds month
             else if ((int) dueDate.charAt(5) < 48 || (int) dueDate.charAt(5) > 49) {
                 output = "Please enter a valid month in YYYY-MM-DD format.";
             }
+            // Out of bounds date
             else if ((int) dueDate.charAt(8) < 48 || (int) dueDate.charAt(8) > 51) {
                 output = "Please enter a valid date in YYYY-MM-DD format.";
             }
