@@ -2,17 +2,9 @@
 'https://plantuml.com/sequence-diagram
 
 class ToDoListController {
-    - Button displayAllButton
-    - Button displayCompleteButton
-    - Button displayIncompleteButton
-    - Button saveListButton
-    - Button removeItemButton
-    - Button removeAllItemsButton
-    - Button addItemButton
-    - Button editDescriptionButton
-    - Button editDueDateButton
-    - Button markCompleteButton
     - TextArea display
+    - TextArea dueDateError
+    - TextArea dueDateError2
     - TextField filePathForList
     - TextField newItemDescription
     - TextField newItemDueDate
@@ -23,7 +15,7 @@ class ToDoListController {
     - TextField itemDueDate
     + List<ToDo_List> lists
     + void addItemGateway()
-    + void addItem()
+    + void addItem(String description, String dueDate)
     + void removeItemGateway()
     + void removeItem()
     + void clearItems()
@@ -31,7 +23,8 @@ class ToDoListController {
     + void displayCompletedItems()
     + void displayIncompleteItems()
     + void saveList()
-    + void loadList()
+    + void loadGateway()
+    + void loadList(String filePath)
     + void markCompleteGateway()
     + void markComplete(int itemNum)
     + void editDescriptionGateway()
@@ -46,6 +39,10 @@ class Item {
     + String getDescription()
     + String getDueDate()
     + boolean isCompleted()
+    + void setDescription(String newDescription)
+    + void setDueDate(String newDueDate)
+    + void setIncomplete()
+    + void setComplete()
 }
 
 ToDoListController <|---Item

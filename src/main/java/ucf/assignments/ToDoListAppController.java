@@ -49,7 +49,7 @@ public class ToDoListAppController {
     @FXML
     private TextField itemDueDate;
 
-    List<Item> toDoList = new ArrayList<Item>();
+    public List<Item> toDoList = new ArrayList<Item>();
 
     @FXML
     public void addItemGateway(){

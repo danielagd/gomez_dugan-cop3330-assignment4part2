@@ -10,19 +10,25 @@ public class ItemTest {
     // create global Item
 
     @Test
-    public void editDescription() {
+    public void setDescription() {
         // call editDescription from Item with a new description passed
         // assert the global item's description is updated with string passed above
     }
 
     @Test
-    public void editDueDate() {
+    public void setDueDate() {
         // call editDueDate from Item with a new due date passed
         // assert the global item's due date is updated with string passed above
     }
 
     @Test
-    public void markComplete() {
+    public void setComplete() {
+        // call markComplete from Item with True
+        // assert the global item's completed field is True
+    }
+
+    @Test
+    public void setIncomplete() {
         // call markComplete from Item with True
         // assert the global item's completed field is True
     }

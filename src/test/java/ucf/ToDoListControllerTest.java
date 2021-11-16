@@ -6,22 +6,13 @@ package ucf;
  */
 
 import org.junit.jupiter.api.Test;
+import ucf.assignments.ToDoListAppController;
 
 public class ToDoListControllerTest {
 
-    // create global list of lists
-
     @Test
-    public void addList() {
-        // create to do list
-        // add list to global list by calling addList from ToDoListController
-        // assert global list contains passed in list
-    }
+    public void addItem(){
 
-    @Test
-    public void removeList() {
-        // remove a list from the global list by calling removeList from ToDoListController
-        // assert global list does not contain passed in list
     }
 
     @Test
@@ -30,16 +21,6 @@ public class ToDoListControllerTest {
         // loop through one list from global list
         // add contents to test file
         // call saveList from ToDoListController with same list
-        // parse both files
-        // assert files are equal in contents
-    }
-
-    @Test
-    public void saveAllLists() {
-        // create test file
-        // loop through global list
-        // add contents to test file
-        // call saveList from ToDoListController with global list
         // parse both files
         // assert files are equal in contents
     }
