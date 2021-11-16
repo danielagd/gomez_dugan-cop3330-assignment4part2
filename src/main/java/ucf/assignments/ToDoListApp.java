@@ -20,7 +20,7 @@ public class ToDoListApp extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(ToDoListApp.class.getResource("/ucf.assignments/App.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ToDoListApp.class.getResource("/ucf/assignments/App.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();

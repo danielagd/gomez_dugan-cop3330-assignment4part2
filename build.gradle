@@ -23,8 +23,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.example.gomez_dugancop3330assignment4part2'
-    mainClass = 'com.example.gomez_dugancop3330assignment4part2.HelloApplication'
+    mainModule = 'ucf.assignments'
+    mainClass = 'ucf.assignments.ToDoListApp'
 }
 
 javafx {

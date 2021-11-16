@@ -2,38 +2,51 @@
 'https://plantuml.com/sequence-diagram
 
 class ToDoListController {
-    # List<ToDo_List> lists
-    # void addList()
-    # void removeList()
-    # void saveList()
-    # void saveAllLists()
-    # void loadList()
+    - Button displayAllButton
+    - Button displayCompleteButton
+    - Button displayIncompleteButton
+    - Button saveListButton
+    - Button removeItemButton
+    - Button removeAllItemsButton
+    - Button addItemButton
+    - Button editDescriptionButton
+    - Button editDueDateButton
+    - Button markCompleteButton
+    - TextArea display
+    - TextField filePathForList
+    - TextField newItemDescription
+    - TextField newItemDueDate
+    - TextField itemNumber
+    - TextField editItemDescription
+    - TextField editItemDueDate
+    - TextField removeItemGiven
+    - TextField itemDueDate
+    + List<ToDo_List> lists
+    + void addItemGateway()
+    + void addItem()
+    + void removeItemGateway()
+    + void removeItem()
+    + void clearItems()
+    + void displayAllItems()
+    + void displayCompletedItems()
+    + void displayIncompleteItems()
+    + void saveList()
+    + void loadList()
+    + void markCompleteGateway()
+    + void markComplete(int itemNum)
+    + void editDescriptionGateway()
+    + void editDescription(int itemNum, String newDescription)
+    + void editDueDateGateway()
+    + void editDueDate(int itemNum, String newDueDate)
 }
-
-class ToDoList{
-    # String title
-    # List<Item> list
-    # String getTitle()
-    # void editListTitle()
-    # void addItem()
-    # void removeItem()
-    # void displayItems()
-    # void displayCompletedItems()
-    # void displayIncompleteItems()
-}
-
 class Item {
     # String description
     # String dueDate
     # boolean completed
-    # String getDescription()
-    # String getDueDate()
-    # boolean isCompleted()
-    # void editDescription()
-    # void editDueDate()
-    # void markComplete()
-
+    + String getDescription()
+    + String getDueDate()
+    + boolean isCompleted()
 }
-ToDoListController <|--- ToDoList
-ToDoList <|---Item
+
+ToDoListController <|---Item
 @enduml
